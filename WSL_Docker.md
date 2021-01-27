@@ -37,16 +37,22 @@
 
 
 
-##### /home/mindslab/bbj 이동 후
+- 이미지 로드 + 컨테이너 생성 + bash 실행 (-rm 적용할 경우 생성된 컨테이너가 종료 시 자동 삭제됨)
+
+```
+docker run -it docker.maum.ai:443/maum-sdn:1.0.4 /bin/bash
+```
 
 - 이미지 로드 + 컨테이너 생성 + bash 실행 (-rm 적용할 경우 생성된 컨테이너가 종료 시 자동 삭제됨)
 
 ```
-docker run -it docker.maum.ai:443/maum-sdn:1.0.4 bash
+docker run -it --name bbj docker.maum.ai:443/maum-sdn:1.0.4 /bin/bash
 ```
 
+- 로컬(host)의 /home/mindslab/bbj 디렉토리를 컨테이너의 /var/lib/bbj로 복사하면서 이미지 로드+컨테이너 생성+bash 실행
+
 ```
-docker run -it --name bbj docker.maum.ai:443/maum-sdn:1.0.4 /bin/bash
+docker run -it -v /home/mindslab/bbj:/var/lib/bbj --name bbj docker.maum.ai:443/maum-sdn:1.0.4 /bin/bash
 ```
 
 - 컨테이너 종료
@@ -55,7 +61,7 @@ docker run -it --name bbj docker.maum.ai:443/maum-sdn:1.0.4 /bin/bash
 exit
 ```
 
-- 컨테이너 실행
+- bbj 컨테이너 실행
 
 ```
 docker start bbj
