@@ -81,3 +81,17 @@ docker attach bbj
 
 
 
+____
+
+- nlp 컨테이너 실행
+
+```
+docker container start nlp
+```
+
+- nlp 컨테이너 접속
+
+```
+docker exec -it nlp bash
+```
+
