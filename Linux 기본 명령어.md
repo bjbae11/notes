@@ -123,5 +123,16 @@ ctrl + z
 
 fg
 // 백그라운드 작업창 불러오기
+
+ctrl + p + q
+// 컨테이너 종료하지 않고 도커 쉘 빠져나오기
+
+tar -xvf [.tar file name]
+tar 압축해제
+
+tar -cvf [.tar file name] [zipping folder name]
+tar 파일로 압축
+
+
 ```
 
