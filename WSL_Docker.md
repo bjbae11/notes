@@ -95,3 +95,61 @@ docker container start nlp
 docker exec -it nlp bash
 ```
 
+
+
+___
+
+- docker save (image→tar) 파일명 지정을 위해 -o 옵션을 이용한다.
+
+```
+\# docker save [option] [save_name] [image_name]
+$ docker save -o docker_image.tar container1
+$ docker save -o ratsgo_knlp.tar ratsgo/embedding-gpu:latest
+```
+
+- docker load (tar→image)
+
+```
+$ docker load -i docker_image.tar
+```
+
+- docker export (image+container → tar)
+
+```
+\# docker export [container name or ID] [save_name]
+$ docker export container1 docker_container.tar
+$ docker export nlp > ratsgo_knlp_0201.tar
+```
+
+- docker import (tar → image+container)
+
+```
+$ docker import docker_container.tar
+$ docker import ratsgo_knlp_0201.tar
+```
+
+
+
+____
+
+- 이미지 삭제
+
+```
+$ docker rmi 49c9db782d4d
+```
+
+- 새 이미지 태그
+
+```
+$ docker image tag 기반이미지명[:태그] 새이미지명[:태그]
+```
+
+____
+
+- 커밋(변경사항 저장한 새 이미지 생성)
+
+```
+sudo docker commit -p -a [AUTHOR] -m [COMMIT MESSAGE] [CONTAINER ID] [NEW IMAGE NAME[:TAG]]
+```
+
+- commit - save - load - run
