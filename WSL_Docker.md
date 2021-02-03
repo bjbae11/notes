@@ -153,3 +153,9 @@ sudo docker commit -p -a [AUTHOR] -m [COMMIT MESSAGE] [CONTAINER ID] [NEW IMAGE 
 ```
 
 - commit - save - load - run
+- 푸쉬(도커허브에 업로드)
+
+```
+docker push <Docker Hub 사용자 계정>/<이미지 이름>:<태그>
+```
+
