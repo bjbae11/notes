@@ -49,7 +49,7 @@ docker run -it docker.maum.ai:443/maum-sdn:1.0.4 /bin/bash
 docker run -it --name bbj docker.maum.ai:443/maum-sdn:1.0.4 /bin/bash
 ```
 
-- 로컬(host)의 /home/mindslab/bbj 디렉토리를 컨테이너의 /var/lib/bbj로 복사하면서 이미지 로드+컨테이너 생성+bash 실행
+- 로컬(host)의 /home/mindslab/bbj 디렉토리를 bbj 컨테이너의 /var/lib/bbj로 복사하면서 maum-sdn:1.0.4 이미지 로드+컨테이너 생성+bash 실행
 
 ```
 docker run -it -v /home/mindslab/bbj:/var/lib/bbj --name bbj docker.maum.ai:443/maum-sdn:1.0.4 /bin/bash
