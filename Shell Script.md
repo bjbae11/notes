@@ -401,4 +401,90 @@ $ chmod +x shell_script_practice.sh
     !: 조건이 안 맞으면 참(ex: ! -e file)
     ```
 
+  - 반복문
+  
+    ```bash
+    # 반복문을 빠져 나갈때: break
+    # 현재 반복문이나 조건문을 건너뛸 때: continue
     
+    # 지정된 범위 안에서 반복문 필요 시 좋음
+    for string in "hello" "world" "..."; do;
+        echo ${string};
+    done
+    
+    # 수행 조건이 true 일때 실행됨 (실행 횟수 지정이 필요하지 않은 반복문 필요 시 좋음)
+    count=0
+    while [ ${count} -le 5 ]; do
+        echo ${count}
+        count=$(( ${count}+1 ))
+    done
+    
+    # 수행 조건이 false 일때 실행됨 (실행 횟수 지정이 필요하지 않은 반복문 필요 시 좋음)
+    count2=10
+    until [ ${count2} -le 5 ]; do
+        echo ${count2}
+        count2=$(( ${count2}-1 ))
+    done
+    ```
+  
+  - 조건문
+  
+    ```bash
+    string1="hello"
+    string2="world"
+    if [ ${string1} == ${string2} ]; then
+        # 실행 문장이 없으면 오류 발생함
+        # 아래 echo 문장을 주석처리하면 확인 가능함
+        echo "hello world"
+    elif [ ${string1} == ${string3} ]; then
+        echo "hello world 2"
+    else
+        echo "hello world 3"
+    fi
+    
+    # AND
+    if [ ${string1} == ${string2} ] && [ ${string3} == ${string4} ]
+    ..생략
+    
+    # OR
+    if [ ${string1} == ${string2} ] || [ ${string3} == ${string4} ]
+    ..생략
+    
+    # 다중 조건
+    if [[ ${string1} == ${string2} || ${string3} == ${string4} ]] && [ ${string5} == ${string6} ]
+    ..생략
+    ```
+  
+  - 선택문
+  
+    ```bash
+    # 정규식을 지원하며 | 기호로 다중 값을 입력 가능하며 조건의 문장 끝에는 ;; 기호로 끝을 표시
+    
+    # case문 테스트를 위한 반복문
+    for string in "HELLO" "WORLD" "hello" "world" "s" "start" "end" "etc"; do
+    
+        # case문 시작
+        case ${string} in
+            hello|HELLO)
+                echo "${string}: hello 일때"
+                ;;
+            wo*)
+                echo "${string}: wo로 시작하는 단어 일때"
+                ;;
+            s|start)
+                echo "${string}: s 혹은 start 일때"
+                ;;
+            e|end)
+                echo "${string}: e 혹은 end 일때"
+                ;;
+            *)
+                echo "${string}: 기타"
+                ;;
+        esac
+        # //case문 끝
+    
+    done
+    ```
+
+
+
