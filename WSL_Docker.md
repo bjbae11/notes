@@ -81,6 +81,16 @@ docker attach bbj
 
 
 
+- #### 포트
+
+  - ```
+    -p 80:5000
+    > 호스트의 80번과 컨테이너의 5000번 포트를 연결
+    > 외부에서 서버 80포트로 접근 => 컨테이너의 5000번 포트에 접속
+    ```
+
+  - 외부에서 컨테이너 안에서 실행중인 서비스에 접근하려면 해당 서비스가 사용하는 포트를 외부 호스트 포트와 연결해주어야 함 
+
 ____
 
 - nlp 컨테이너 실행
@@ -93,6 +103,47 @@ docker container start nlp
 
 ```
 docker exec -it nlp bash
+```
+
+- 컨테이너 생성
+
+```
+docker create
+> 컨테이너를 만들고 아무것도 하지 않음
+
+docker run
+> 컨테이너를 만들고 실행
+```
+
+- 자원 할당
+
+```
+--memory 1g, 1024m (기본값 - 전체)
+--cpu-shares <숫자. 기본값: 1024>
+--cpuset-cpus <설정. ex) 2, "0,2", "0-2">
+--gpus <설정. 기본값:사용x ex) all, 2, '"device=1,2"'>
+```
+
+- 네트워크 옵션
+
+```
+--net <mode>
+> bridge: 기본값, host 안에 격리된 내부망
+> host: host의 네트워크를 사용
+> none: 네트워크를 사용하지 않음
+> container:<name, id>: 다른 컨테이너의 네트워크를 사용
+-p <host>:<container>
+> host의 port를 container의 port에 연결하는 옵션
+> netword mode가 bridge일 때 작동하며, port forwarding으로 이해하면 됨
+```
+
+- 볼륨 옵션
+
+```
+-v <host>:<container>
+> host의 디렉토리를 container에 mount시키는 옵션
+--volumes-from <name>
+> 다른 container의 volume을 연결하는 옵션
 ```
 
 
