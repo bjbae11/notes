@@ -2,32 +2,63 @@
 
 ___
 
-0. establish wsl ubuntu + gpu environment
+0. #### establish wsl ubuntu + gpu environment
+    
     - subscribe for Windows 10 Insider Preview
+    
     - enable WSL2
+    
     - get latest WSL patch from Windows Update 
+    
     - install Ubuntu
+
     - get CUDA for WSL2
-      
+  
       - ~~**nvidia-smi is not included**~~
+  
     - get Docker-CE for Linux
 
+      ____
+
       - CUDA for WSL:
-
-        - **1/28/2020**: CUDA Toolkit 11.2 support, nvidia-smi, NVML support and critical performance improvements
-
-          - Note that NVIDIA Container Toolkit does not yet support [Docker Desktop WSL 2](https://docs.docker.com/docker-for-windows/wsl/) backend. Use Docker-CE for Linux instead inside your WSL 2 Linux distribution.
-
-          - nvidia-smi is now supported but in order to use it, please copy it to /usr/bin and set appropriate permissions with the below commands:
-
+    
+        - **1/28/2021**: CUDA Toolkit 11.2 support, nvidia-smi, NVML support and critical performance improvements
+    
+      - Note that NVIDIA Container Toolkit does not yet support [Docker Desktop WSL 2](https://docs.docker.com/docker-for-windows/wsl/) backend. Use Docker-CE for Linux instead inside your WSL 2 Linux distribution.
+    
+      - nvidia-smi is now supported but in order to use it, please copy it to /usr/bin and set appropriate permissions with the below commands:
+      
             ```
             cp /usr/lib/wsl/lib/nvidia-smi /usr/bin/nvidia-smi
-            chmod ogu+x /usr/bin/nvidia-smi
+          chmod ogu+x /usr/bin/nvidia-smi
             ```
-
+      
+            ___
             
-
-1. get ratsgo/embedding-gpu image
+            
+      
+    - <u>vim is not installed in the image</u>
+    
+      - apt-get update
+      - apt-get install vim
+    
+    - <u>default apt mirror region is set to US in the image</u>
+    
+      - ```
+        sudo vim /etc/apt/sources.list
+        ```
+    
+        ```
+        :%s/archive.ubuntu.com/mirror.kakao.com
+        ```
+    
+        ```
+        :%s/security.ubuntu.com/mirror.kakao.com
+        ```
+    
+        
+    
+1. #### get ratsgo/embedding-gpu image
 
    ```
    docker pull ratsgo/embedding-gpu
@@ -35,7 +66,7 @@ ___
 
    
 
-2. create container and load
+2. #### create container and load
 
    ```
    docker run -it --name [CONTAINER NAME] --gpus all -p 8888:8888 -v [{HOST DIRECTORY}]:[/notebooks/embedding/{DIRECTORY}] ratsgo/embedding-gpu /bin/bash
@@ -43,7 +74,7 @@ ___
 
    
 
-3. in the container,
+3. #### in the container,
 
    ```
    jupyter notebook --allow-root
@@ -51,4 +82,4 @@ ___
 
 
 
-4. copy & paste given url to your browser
+4. #### copy & paste given url to your browser
