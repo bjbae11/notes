@@ -75,10 +75,23 @@ git branch (-r:원격 브랜치 목록 -a:로컬+원격 브랜치 목록)
 
 ____
 
-```
+rebase를 진행할 branch에서
 
 ```
+git rebase master
+```
 
+- Merge는 branch를 통합하는 것이고, Rebase는 branch의 base를 옮긴다는 개념의 차이가 있습니다.
+  
+- rebase는 사전 의미와 같이 base를 재설정한다는 의미 입니다.
+  
+  여기서 말하는 base는 branch의 base를 의미 합니다.
+  
+  branch는 base 지점을 가지고 있어 base에서부터 코드를 수정합니다.
+  
+  git history를 살펴보면 branch의 base가 어디 있는지 확인 할 수 있습니다.
+  
 - **이미 공개 저장소에 Push 한 커밋을 Rebase 하지 마라**
+  
   - Rebase는 기존의 커밋을 그대로 사용하는 것이 아니라 내용은 같지만 다른 커밋을 새로 만든다. 새 커밋을 서버에 Push 하고 동료 중 누군가가 그 커밋을 Pull 해서 작업을 한다고 하자. 그런데 그 커밋을 `git rebase` 로 바꿔서 Push 해버리면 동료가 다시 Push 했을 때 동료는 다시 Merge 해야 한다. 그리고 동료가 다시 Merge 한 내용을 Pull 하면 내 코드는 정말 엉망이 된다.
 
