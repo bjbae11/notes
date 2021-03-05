@@ -37,21 +37,30 @@ cd /usr/local/freeswitch/conf/dialplan/public
   <extension name="public_did">
     <condition field="destination_number" expression="^(07074145483)$">
       <action application="set_profile_var" data="code=mj-app"/>
-      <action application="park"/>
+      <action application="socket" data="127.0.0.1:8041 async full"/>
     </condition>
   </extension>
   <extension name="public_did">
     <condition field="destination_number" expression="^(07074145484)$">
       <action application="set_profile_var" data="code=khs-app"/>
-      <action application="park"/>
+      <action application="socket" data="127.0.0.1:8042 async full"/>
     </condition>
   </extension>
   <extension name="public_did">
     <condition field="destination_number" expression="^(07074145485)$">
       <action application="set_profile_var" data="code=bbj-app"/>
-      <action application="park"/>
+      <action application="socket" data="127.0.0.1:8043 async full"/>
     </condition>
   </extension>
+```
+# Python script 예제
+위의 dialplan은 outbound ESL socket을 기반으로 하기 때문에 서버 형태의 python script가 필요함. Python script 예제는 `/srv/maum/scripts` 아래에 있는 `server.py`는 사용할 것.
+코드(`server.py`)의 가장 아래 부분에 있는 `8040`을 개인별로 할당된 전화번호와 매치되는 port(8041, 8042, 8043)로 변경해서 실행.
+할당된 번호로 수신된 session의 event만 처리하기 때문에 다른 번호와 완벽하게 분리됨.
+```python
+#server host is a tuple ('host', port)
+server = SocketServer.ThreadingTCPServer(('127.0.0.1', 8040), ESLRequestHandler)
+server.serve_forever()
 ```
 
 ## python-flask 도커 
@@ -64,6 +73,11 @@ docker exec -it python-flask bash
 * `static/custom.js`: socket.io 서버와 연동하는 client code
 * `static/style.css`: 웹 페이지 CSS 파일
 * `template/index.html`: 웹 페이지 HTML 파일 
+
+Flask 웹서버 재시작은 기존 process는 kill하고 
+```
+flask run --host=0.0.0.0
+```
 
 ## maum-switch ESL 기반 python script
 * ESL 관련 내용은 Freeswitch의 관련 링크[Freeswitch ESL](https://freeswitch.org/confluence/display/FREESWITCH/Event+List)를 참고
